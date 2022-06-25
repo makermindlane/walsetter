@@ -20,7 +20,7 @@ fi
 wal -i $file_path
 
 # Set wallpaper
-~/.local/src/walsetter/ksetwallpaper.py -f $file_path
+~/.local/src/walsetter/ksetwallpaper.py -l -f $file_path
 
 # Move color scheme file to .local/share/color-schemes
 ~/.local/src/walsetter/move-colors-kde.sh $filename
