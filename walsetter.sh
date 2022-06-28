@@ -5,7 +5,6 @@ file_path=$1
 # Light theme or dark theme option
 option=$2
 
-
 # Check if file exists or not
 if [ ! -f "$file_path" ]; then
 	echo "$file_path does not exist"
@@ -29,7 +28,6 @@ if [ "$option" = "l" ]; then
 	wal -l -i $abs_file_path
 
 	echo "Applying light color scheme..."
-
 else 
 	# Call pywal to generate dark color schemes
 	echo "Generating dark theme ..."
