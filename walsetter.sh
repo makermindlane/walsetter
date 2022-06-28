@@ -2,29 +2,58 @@
 
 file_path=$1
 
-# Get filename without extension
-filename=$(basename $file_path | sed 's/\(.*\)\..*/\1/')
+# Light theme or dark theme option
+option=$2
 
-# Get directory
-#dir_loc=$(dirname $file_path)
 
 # Check if file exists or not
 if [ ! -f "$file_path" ]; then
 	echo "$file_path does not exist"
 	exit 1
-else
-	echo "$file_path found."
 fi
 
-# Call pywal to generate color schemes
-wal -i $file_path
+# Get the absolute file path
+abs_file_path=`realpath $file_path`
+
+# Get filename without extension
+# (I've no idea how the `sed` cmd is working :/)
+filename=$(basename $file_path | sed 's/\(.*\)\..*/\1/')
 
 # Set wallpaper and lockscreen
-~/.local/src/walsetter/ksetwallpaper.py -l -f $file_path
+echo "Setting wallpaper and lockscreen..."
+~/.local/src/walsetter/ksetwallpaper.py -l -f $abs_file_path
 
-# Move color scheme file to .local/share/color-schemes
-~/.local/src/walsetter/move-colors-kde.sh $filename
+if [ "$option" = "l" ]; then
+	# Call pywal to generate light color schemes
+	echo "Generating light theme ..."
+	wal -l -i $abs_file_path
 
-# Apply new color scheme
-plasma-apply-colorscheme $filename
+	# Move color scheme file to .local/share/color-schemes
+	~/.local/src/walsetter/move-colors-kde.sh $filename
 
+	plasma-apply-desktoptheme default
+
+	# Apply new color scheme
+	echo "Applying light color scheme..."
+	plasma-apply-colorscheme $filename
+
+else 
+	# Call pywal to generate dark color schemes
+	echo "Generating dark theme ..."
+	wal -i $abs_file_path
+
+	# Move color scheme file to .local/share/color-schemes
+	~/.local/src/walsetter/move-colors-kde.sh $filename
+
+	plasma-apply-desktoptheme default
+
+	# Apply new color scheme
+	echo "Applying dark color scheme..."
+	plasma-apply-colorscheme $filename
+fi
+
+# Setting sddm background
+#echo "Applying sddm backgroung..."
+#echo "[General]
+#background=$file_path
+#type=image" > /usr/share/sddm/themes/breeze/theme.conf.usr
