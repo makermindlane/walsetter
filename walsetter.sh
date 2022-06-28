@@ -28,29 +28,20 @@ if [ "$option" = "l" ]; then
 	echo "Generating light theme ..."
 	wal -l -i $abs_file_path
 
-	# Move color scheme file to .local/share/color-schemes
-	~/.local/src/walsetter/move-colors-kde.sh $filename
-
-	plasma-apply-desktoptheme default
-
-	# Apply new color scheme
 	echo "Applying light color scheme..."
-	plasma-apply-colorscheme $filename
 
 else 
 	# Call pywal to generate dark color schemes
 	echo "Generating dark theme ..."
 	wal -i $abs_file_path
 
+	echo "Applying dark color scheme..."
+fi
 	# Move color scheme file to .local/share/color-schemes
 	~/.local/src/walsetter/move-colors-kde.sh $filename
 
 	plasma-apply-desktoptheme default
-
-	# Apply new color scheme
-	echo "Applying dark color scheme..."
 	plasma-apply-colorscheme $filename
-fi
 
 # Setting sddm background
 #echo "Applying sddm backgroung..."
