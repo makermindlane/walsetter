@@ -27,14 +27,16 @@ if [ "$option" = "l" ]; then
 	echo "Generating light theme ..."
 	wal -l -i $abs_file_path
 
-	echo "Applying light color scheme..."
-else 
+	filename=$filename-light
+else
 	# Call pywal to generate dark color schemes
 	echo "Generating dark theme ..."
 	wal -i $abs_file_path
 
-	echo "Applying dark color scheme..."
+	filename=$filename-dark
 fi
+	echo "Applying $filename color scheme..."
+
 	# Move color scheme file to .local/share/color-schemes
 	~/.local/src/walsetter/move-colors-kde.sh $filename
 
