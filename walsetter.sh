@@ -20,7 +20,8 @@ filename=$(basename $file_path | sed 's/\(.*\)\..*/\1/')
 
 # Set wallpaper and lockscreen
 echo "Setting wallpaper and lockscreen..."
-~/.local/src/walsetter/ksetwallpaper.py -l -f $abs_file_path
+ksetwallpaper.py -l -f $abs_file_path
+# ~/.local/src/walsetter/ksetwallpaper.py -l -f $abs_file_path
 
 if [ "$option" = "l" ]; then
 	# Call pywal to generate light color schemes
@@ -38,7 +39,8 @@ fi
 	echo "Applying $filename color scheme..."
 
 	# Move color scheme file to .local/share/color-schemes
-	~/.local/src/walsetter/move-colors-kde.sh $filename
+	move-colors-kde.sh $filename
+	# ~/.local/src/walsetter/move-colors-kde.sh $filename
 
 	plasma-apply-desktoptheme default
 	plasma-apply-colorscheme $filename
